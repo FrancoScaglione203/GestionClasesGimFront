@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+
 namespace GestionClasesGimFront
 {
     public class Program
@@ -6,8 +8,51 @@ namespace GestionClasesGimFront
         {
             var builder = WebApplication.CreateBuilder(args);
 
+
             // Add services to the container.
+
+
             builder.Services.AddControllersWithViews();
+            builder.Services.AddResponseCaching();
+            builder.Services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30); // Tiempo de expiración de la sesión
+            });
+
+            builder.Services.AddHttpContextAccessor();
+
+            builder.Services.AddHttpClient("useApi", config =>
+            {
+                config.BaseAddress = new Uri(builder.Configuration["ServiceUrl:ApiUrl"]);
+              
+            });
+
+            builder.Services.AddAuthentication(option =>
+            {
+                option.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                option.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                option.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            }).AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, config =>
+            {
+                config.Events.OnRedirectToLogin = context =>
+                {
+                    context.Response.Redirect("https://localhost:7247");
+                    return Task.CompletedTask;
+                };
+            });
+
+            builder.Services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Admin", policy =>
+                {
+                    policy.RequireRole("1");
+                });
+
+                options.AddPolicy("Alumno", policy =>
+                {
+                    policy.RequireRole("1", "2");
+                });
+            });
 
             var app = builder.Build();
 
@@ -21,11 +66,17 @@ namespace GestionClasesGimFront
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            
+
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
+            
+
+            app.UseSession();
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Login}/{action=Login}/{id?}");
