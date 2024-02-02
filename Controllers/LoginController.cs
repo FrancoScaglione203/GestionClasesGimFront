@@ -4,11 +4,21 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net.Http;
 using System.Security.Claims;
 using GestionClasesGimFront.Data.DTOs;
+using GestionClasesGimFront.Data.Base;
+using Newtonsoft.Json;
+using GestionClasesGimFront.Models;
+using System.Net;
+using GestionClasesGimFront.ViewModels;
 
 namespace GestionClasesGimFront.Controllers
 {
     public class LoginController : Controller
     {
+        private readonly IHttpClientFactory _httpClient;
+        public LoginController(IHttpClientFactory httpClient)
+        {
+            _httpClient = httpClient;
+        }
         public IActionResult Login()
         {
             return View();
@@ -16,31 +26,46 @@ namespace GestionClasesGimFront.Controllers
 
         public async Task<IActionResult> Ingresar(LoginDto login)
         {
-            //var baseApi = new BaseApi(_httpClient);
-            //var token = await baseApi.PostToApi("Login", login);
-            //var resultadoLogin = token as OkObjectResult;
-            //var apiResponse = JsonConvert.DeserializeObject<ApiResponse<LoginResponse>>(resultadoLogin.Value.ToString());
+            var baseApi = new BaseApi(_httpClient);
+            var token = await baseApi.PostToApi("Login", login); //Llama al EndPoint del back y envia lo que tiene que recibir ese endpoint
+            var resultadoLogin = token as OkObjectResult;
+            var apiResponse = JsonConvert.DeserializeObject<LoginResponse>(resultadoLogin.Value.ToString());
 
-            //var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme, ClaimTypes.Name, ClaimTypes.Role);
-            //Claim claimRole = new(ClaimTypes.Role, apiResponse.Data.roleId.ToString());
+            var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme, ClaimTypes.Name, ClaimTypes.Role);
+            Claim claimRole = new(ClaimTypes.Role, apiResponse.roleId.ToString());
+            Claim claimDni = new Claim("Dni", apiResponse.Dni.ToString());
 
-            //identity.AddClaim(claimRole);
 
-            //var claimPrincipal = new ClaimsPrincipal(identity);
+            identity.AddClaim(claimRole);
+            identity.AddClaim(claimDni);
 
-            //await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimPrincipal, new AuthenticationProperties
-            //{
-            //    ExpiresUtc = DateTime.Now.AddHours(1),
-            //});
+            var claimPrincipal = new ClaimsPrincipal(identity);
 
-            //HttpContext.Session.SetString("Token", apiResponse.Data.Token);
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimPrincipal, new AuthenticationProperties
+            {
+                ExpiresUtc = DateTime.Now.AddHours(1), //Tiempo que se mantiene la sesion
+            });
+
+            
 
             //var homeViewModel = new HomeViewModel();
-            //homeViewModel.Token = apiResponse.Data.Token;
+            //homeViewModel.Token = apiResponse.Token;   
 
+            
+
+            string Dni = apiResponse.Dni.ToString();
+            string Token = apiResponse.Token.ToString();
+            HttpContext.Session.SetString("Dni", Dni);
+            HttpContext.Session.SetString("Token", Token);
+
+            return RedirectToAction("Index", "Home");
             //return View("~/Views/Home/Index.cshtml", homeViewModel);
-            return View("~/Views/Home/Index.cshtml");
+        }
 
+        public async Task<IActionResult> CerrarSesion()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Login", "Login");
         }
     }
 }

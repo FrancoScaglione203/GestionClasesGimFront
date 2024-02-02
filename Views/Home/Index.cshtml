@@ -1,8 +1,22 @@
-﻿@{
+﻿@model GestionClasesGimFront.ViewModels.HomeViewModel
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@{
     ViewData["Title"] = "Home Page";
+    string dniSession = HttpContextAccessor.HttpContext.Session.GetString("Dni");
+    string tokenSession = HttpContextAccessor.HttpContext.Session.GetString("Token");
+
 }
+
+
+
+<div id="token" data-token="@tokenSession"></div>
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+    <p>Dni: @dniSession</p>
+
 </div>
+
+
+<script src="~/js/Home/Home.js"></script>

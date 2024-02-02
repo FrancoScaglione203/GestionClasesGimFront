@@ -1,9 +1,11 @@
 ﻿using GestionClasesGimFront.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace GestionClasesGimFront.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -15,6 +17,7 @@ namespace GestionClasesGimFront.Controllers
 
         public IActionResult Index()
         {
+
             return View();
         }
 
