@@ -19,6 +19,7 @@ namespace GestionClasesGimFront.ViewModels
             usuariosViewModel.Dni = usuario.Dni;
             usuariosViewModel.Clave = usuario.Clave;
             usuariosViewModel.RoleId = usuario.RoleId;
+            usuariosViewModel.Activo = usuario.Activo;
             return usuariosViewModel;
         }
     }

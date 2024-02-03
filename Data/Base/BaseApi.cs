@@ -71,5 +71,7 @@ namespace GestionClasesGimFront.Data.Base
             }
 
         }
+
+        
     }
 }
