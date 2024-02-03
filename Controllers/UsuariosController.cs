@@ -22,22 +22,50 @@ namespace GestionClasesGimFront.Controllers
             return View();
         }
 
-        public async Task<IActionResult> usuariosAddPartial() 
+        public async Task<IActionResult> usuariosAddPartial([FromBody] UsuarioDto usuario) 
         {
+            var usuariosViewModel = new UsuariosViewModel();
+            if (usuario != null)
+            {
+                usuariosViewModel = usuario;
+                return PartialView("~/Views/Usuarios/Partial/UsuariosUpdatepartial.cshtml",usuariosViewModel);
+            }
             return PartialView("~/Views/Usuarios/Partial/UsuariosAddPartial.cshtml");
         }
 
+
+
+        public async Task<IActionResult> usuariosDeletePartial([FromBody] UsuarioDto usuario)
+        {
+            var usuariosViewModel = new UsuariosViewModel();
+            usuariosViewModel = usuario;
+            return PartialView("~/Views/Usuarios/Partial/UsuariosDeletePartial.cshtml",usuariosViewModel);
+        }
+
+
         public IActionResult GuardarUsuario(UsuarioDto usuario)
         {
-            //var baseApi = new BaseApi(_httpClient);
-            //var token = await baseApi.PostToApi("Login", login); //Llama al EndPoint del back y envia lo que tiene que recibir ese endpoint
-            //var resultadoLogin = token as OkObjectResult;
-
-
             var token = HttpContext.Session.GetString("Token");
             var baseApi = new BaseApi(_httpClient);
             var usuarios = baseApi.PostToApi("Usuario/Agregar", usuario, token);
-            //return View("~/Views/Usuarios/Usuarios.cshtml");
+            return RedirectToAction("Usuarios", "Usuarios");
+        }
+
+        public IActionResult EditarUsuario(UsuarioDto usuario)
+        {
+            var token = HttpContext.Session.GetString("Token");
+            var baseApi = new BaseApi(_httpClient);
+            string dni = usuario.Dni.ToString();
+            var usuarios = baseApi.PutToApi($"Usuario/Editar?dni={dni}", usuario, token);
+            return RedirectToAction("Usuarios", "Usuarios");
+        }
+
+        public IActionResult EliminarUsuario(UsuarioDto usuario)
+        {
+            var token = HttpContext.Session.GetString("Token");
+            var baseApi = new BaseApi(_httpClient);
+            string dni = usuario.Dni.ToString();
+            var usuarios = baseApi.PutToApi($"Usuario/DeleteLogico?dni={dni}", usuario, token);
             return RedirectToAction("Usuarios", "Usuarios");
         }
     }
