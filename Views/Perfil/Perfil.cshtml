@@ -1,0 +1,43 @@
+﻿@model GestionClasesGimFront.ViewModels.AlumnosViewModel
+
+
+        <div class="modal-body">
+
+            <div class="row">
+                <div class="col-md-6 mt-1 mb-3">
+                    <label class="col-md-4 form-control-label">NombreEEE</label>
+            @Html.TextBoxFor(x => x.Nombre, new { @readonly = "readonly", @class = "col-md-8 form-control", id = "nombreAlumno" })
+                </div>
+
+                <div class="col-md-6 mt-1 mb-3">
+                    <label class="col-md-2 form-control-label">Apellido</label>
+            @Html.TextBoxFor(x => x.Apellido, new { @readonly = "readonly", @class = "col-md-8 form-control", id = "apellidoAlumno" })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mt-1 mb-3">
+                    <label class="col-md-2 form-control-label">Dni:</label>
+            @Html.TextBoxFor(x => x.Dni, new { @readonly = "readonly", @class = "col-md-8 form-control", id = "dniAlumno" })
+                </div>
+                <div class="col-md-6 mt-1 mb-3">
+                    <label class="col-md-2 form-control-label">Clave</label>
+            @Html.TextBoxFor(x => x.Clave, new { @readonly = "readonly", @class = "col-md-8 form-control", id = "claveAlumno" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mt-1 mb-3">
+                    <label class="col-md-5 form-control-label">Role</label>
+            @Html.TextBoxFor(x => x.RoleId, new { @readonly = "readonly", @class = "col-md-8 form-control", id = "roleIdAlumno" })
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button id="editarPerfil" class="btn btn-primary">Editar</button>
+    <button type="button" class="btn btn-secondary" id="btnCancelar" data-bs-dismiss="modal" style="display: none;">Cancelar</button>
+            <button type="submit" class="btn btn-success" id="btnGuardar" style="display: none;">Confirmar</button>
+            
+        </div>
+
+<script src="~/js/Perfil/Perfil.js"></script>

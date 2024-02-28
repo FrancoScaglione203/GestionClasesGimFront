@@ -24,11 +24,19 @@ namespace GestionClasesGimFront.Controllers
             return View();
         }
 
+        public IActionResult Login2()
+        {
+            return Login2();
+        }
+
         public async Task<IActionResult> Ingresar(LoginDto login)
         {
             var baseApi = new BaseApi(_httpClient);
             var token = await baseApi.PostToApi("Login", login); //Llama al EndPoint del back y envia lo que tiene que recibir ese endpoint
             var resultadoLogin = token as OkObjectResult;
+            if (resultadoLogin == null) {
+                return RedirectToAction("Login", "Login");
+            }
             var apiResponse = JsonConvert.DeserializeObject<LoginResponse>(resultadoLogin.Value.ToString());
 
             var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme, ClaimTypes.Name, ClaimTypes.Role);
@@ -55,8 +63,10 @@ namespace GestionClasesGimFront.Controllers
 
             string Dni = apiResponse.Dni.ToString();
             string Token = apiResponse.Token.ToString();
+            string Role = apiResponse.roleId.ToString();
             HttpContext.Session.SetString("Dni", Dni);
             HttpContext.Session.SetString("Token", Token);
+            HttpContext.Session.SetString("Role", Role);
 
             return RedirectToAction("Index", "Home");
             //return View("~/Views/Home/Index.cshtml", homeViewModel);

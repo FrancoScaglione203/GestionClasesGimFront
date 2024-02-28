@@ -1,5 +1,6 @@
 ﻿var token = getCookie("Token");
 
+
 let table = new DataTable('#alumnos', {
     ajax: {
         url: `https://localhost:7025/api/Alumno/Alumnos`,

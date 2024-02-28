@@ -19,6 +19,7 @@ namespace GestionClasesGimFront.Controllers
 
         public IActionResult Usuarios()
         {
+
             return View();
         }
 
