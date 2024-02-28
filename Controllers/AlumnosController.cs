@@ -2,6 +2,7 @@
 using GestionClasesGimFront.Data.DTOs;
 using GestionClasesGimFront.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace GestionClasesGimFront.Controllers
 {
@@ -19,6 +20,7 @@ namespace GestionClasesGimFront.Controllers
         {
             return View();
         }
+
 
         public async Task<IActionResult> alumnosAddPartial([FromBody] AlumnoDto alumno)
         {

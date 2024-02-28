@@ -1,12 +1,27 @@
 ﻿@model GestionClasesGimFront.ViewModels.AlumnosViewModel
 
-<div class="modal fade" id="alumnoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-        <div class="modal-content">
+@{
+    Layout = null;
+}
+<head>
+    <title>Login 10</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/login/login.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div role="document">
+        <div>
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalCenterTitle">Alta de Alumno.</h5>
+                <h5 class="modal-title" id="exampleModalCenterTitle">Registro de Alumno.</h5>
             </div>
-            @using (Html.BeginForm("GuardarAlumno", "/Alumnos", FormMethod.Post))
+            @using (Html.BeginForm("GuardarAlumno", "/Register", FormMethod.Post))
             {
                 <div class="modal-body">
 
@@ -53,4 +68,9 @@
             }
         </div>
     </div>
-</div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="js/popper.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/js/login/login.js"></script>
+</body>

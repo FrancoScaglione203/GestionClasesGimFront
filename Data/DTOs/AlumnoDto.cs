@@ -4,6 +4,8 @@ namespace GestionClasesGimFront.Data.DTOs
 {
     public class AlumnoDto
     {
+
+
         public string Nombre { get; set; }
         public string Apellido { get; set; }
         public int Dni { get; set; }
