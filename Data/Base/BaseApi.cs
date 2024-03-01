@@ -69,6 +69,8 @@ namespace GestionClasesGimFront.Data.Base
 
         }
 
+        
+
         public async Task<IActionResult> PutToApi(string controllerName, object model, string token = "")
         {
 

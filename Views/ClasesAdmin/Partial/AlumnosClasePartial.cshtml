@@ -1,0 +1,16 @@
+﻿@model GestionClasesGimFront.ViewModels.ClasesViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div class="text-center">
+    <h1 class="display-4">Clase: @Model.Nombre</h1>
+
+</div>
+
+<div id="idClase" style="display: none;">@Model.</div>
+
+<div id="listaAlumnos"></div>
+
+<script src="~/js/ClasesAdmin/AlumnosClasePartial.js"></script>

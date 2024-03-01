@@ -51,11 +51,14 @@ function mostrarClases(response) {
     response.forEach(function (clase) {
         var fechaInscripcion = new Date(clase.fechaInscripcion);
         var cupos = clase.cupos.toString();
+        var capacidadMax = clase.capacidadMax.toString();
         var claseHtml = `<div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">${clase.nombre}</h5>
                                 <p class="card-text">Fecha de inscripción: ${fechaInscripcion.toLocaleDateString()}</p>
-                                <p class="card-text">Cupos disponibles: ${cupos}</p>
+                                <p class="card-text">Inscriptos: ${cupos}</p>
+                                <p class="card-text">Capacidad máxima: ${capacidadMax}</p>
+                                <img src="${clase.imagenUrl}" alt="Imagen de la clase" class="img-fluid" style="width: 200px; height: auto;"/>
                                 <button class="btn btn-primary btn-solicitarC" data-clase-id="${clase.id}" data-dni-alumno="${dniAlumno}">Solicitar cancelacion</button>
                             </div>
                         </div>`;
@@ -78,11 +81,14 @@ function mostrarClasesRestantes(response) {
     response.forEach(function (clase) {
         var fechaInscripcion = new Date(clase.fechaInscripcion);
         var cupos = clase.cupos.toString();
+        var capacidadMax = clase.capacidadMax.toString();
         var claseHtml = `<div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">${clase.nombre}</h5>
                                 <p class="card-text">Fecha de inscripción: ${fechaInscripcion.toLocaleDateString()}</p>
-                                <p class="card-text">Cupos disponibles: ${cupos}</p>
+                                <p class="card-text">Inscriptos: ${cupos}</p>
+                                <p class="card-text">Capacidad máxima: ${capacidadMax}</p>
+                                <img src="${clase.imagenUrl}" alt="Imagen de la clase" class="img-fluid" style="width: 200px; height: auto;"/>
                                 <button class="btn btn-primary btn-solicitar" data-clase-id="${clase.id}" data-dni-alumno="${dniAlumno}">Solicitar inscripcion</button>
                             </div>
                         </div>`;

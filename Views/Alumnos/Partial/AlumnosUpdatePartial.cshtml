@@ -38,6 +38,23 @@
                             @Html.EditorFor(x=> x.RoleId, new {htmlAttributes = new {@class = "col-md-8 form-control" } })
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-6 mt-1 mb-3">
+                            <label class="col-md-2 form-control-label">Imagen Url</label>
+                            @Html.EditorFor(x=> x.imagenUrl, new {htmlAttributes = new {@class = "col-md-8 form-control" } })
+                        </div>
+                        <div class="col-md-6 mt-1 mb-3">
+                            <label class="col-md-2 form-control-label">Imagen</label>
+                            @if (!string.IsNullOrEmpty(Model.imagenUrl))
+                            {
+                                <img src="@Model.imagenUrl" alt="Imagen del alumno" class="img-fluid" />
+                            }
+                            else
+                            {
+                                <p>No hay imagen disponible</p>
+                            }
+                        </div>
+                    </div>
                 </div>
 
                 <div class="modal-footer">
