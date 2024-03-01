@@ -58,10 +58,20 @@
                             @Html.EditorFor(x=> x.FechaInscripcion, new {htmlAttributes = new {@class = "col-md-8 form-control" } })
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-6 mt-1 mb-3">
+                            <label class="col-md-2 form-control-label">Imagen Url</label>
+                            @Html.EditorFor(x=> x.imagenUrl, new {htmlAttributes = new {@class = "col-md-8 form-control", id = "imagenUrlInput" } })
+                        </div>
+                        <div class="col-md-6 mt-1 mb-3">
+                            <label class="col-md-2 form-control-label">Imagen</label>
+                            <img id="imagenPreview" src="" alt="Imagen previa" class="img-fluid" />
+                        </div>
+                    </div>
                 </div>
                 <form action="Alumnos/GuardarAlumno" method="post">
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-secondary" id="btnCancelar" data-bs-dismiss="modal">Cancelar</button>
                         <button type="submit" class="btn btn-success" id="btnGuardar">Guardar</button>
                     </div>
                 </form>
@@ -73,4 +83,5 @@
     <script src="js/popper.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="~/js/login/login.js"></script>
+    <script src="~/js/Register/Register.js"></script>
 </body>

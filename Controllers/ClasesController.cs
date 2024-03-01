@@ -26,7 +26,7 @@ namespace GestionClasesGimFront.Controllers
             string dniA = dniAlumno.ToString();
             string idC= idClase.ToString();
             var clase = baseApi.PutToApi($"Clase/Inscripcion?idClase={idC}&dniAlumno={dniA}",1, token);
-            return View("Clases", "Clases");
+            return RedirectToAction("Clases", "Clases");
         }
 
         public IActionResult Cancelacion(int idClase, int dniAlumno)

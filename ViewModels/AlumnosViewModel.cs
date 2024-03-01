@@ -10,6 +10,7 @@ namespace GestionClasesGimFront.ViewModels
         public int RoleId { get; set; }
         public string Clave { get; set; }
         public DateTime FechaInscripcion { get; set; }
+        public string? imagenUrl { get; set; }
         public bool Activo { get; set; }
 
         public static implicit operator AlumnosViewModel(AlumnoDto alumno)
@@ -21,6 +22,7 @@ namespace GestionClasesGimFront.ViewModels
             alumnosViewModel.Clave = alumno.Clave;
             alumnosViewModel.RoleId = alumno.RoleId;
             alumnosViewModel.FechaInscripcion = alumno.FechaInscripcion;
+            alumnosViewModel.imagenUrl = alumno.imagenUrl;
             alumnosViewModel.Activo = alumno.Activo;
 
             return alumnosViewModel;

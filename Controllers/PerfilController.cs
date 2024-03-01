@@ -58,12 +58,14 @@ namespace GestionClasesGimFront.Controllers
                     Apellido = alumno.Apellido,
                     Dni = alumno.Dni,
                     Clave = alumno.Clave,
+                    imagenUrl = alumno.imagenUrl,
                     RoleId = alumno.RoleId
                   
                 };
 
 
                 // Pasar el objeto AlumnosViewModel a la vista
+                //return View("~/Views/Perfil/Perfil.cshtml", alumnosViewModel);
                 return View("~/Views/Perfil/Perfil.cshtml", alumnosViewModel);
             }
             else if (response is UnauthorizedResult)

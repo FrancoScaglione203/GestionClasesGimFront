@@ -34,11 +34,37 @@ namespace GestionClasesGimFront.Controllers
             return PartialView("~/Views/Alumnos/Partial/AlumnosAddPartial.cshtml");
         }
 
+        public async Task<IActionResult> alumnosDeletePartial([FromBody] AlumnoDto alumno)
+        {
+            var alumnosViewModel = new AlumnosViewModel();
+            alumnosViewModel = alumno;
+            return PartialView("~/Views/Alumnos/Partial/AlumnosDeletePartial.cshtml", alumnosViewModel);
+        }
+
         public IActionResult GuardarAlumno(AlumnoDto alumno)
         {
             var token = HttpContext.Session.GetString("Token");
             var baseApi = new BaseApi(_httpClient);
             var alumnos = baseApi.PostToApi("Alumno/Agregar", alumno, token);
+            return RedirectToAction("Alumnos", "Alumnos");
+        }
+
+        public IActionResult EditarAlumno(AlumnoDto alumno)
+        {
+            var token = HttpContext.Session.GetString("Token");
+            if(alumno.imagenUrl == null) { alumno.imagenUrl = " ";}
+            var baseApi = new BaseApi(_httpClient);
+            string dni = alumno.Dni.ToString();
+            var alumnos = baseApi.PutToApi($"Alumno/EditarByDni?dni={dni}", alumno, token);
+            return RedirectToAction("Alumnos", "Alumnos");
+        }
+
+        public IActionResult EliminarAlumno(AlumnoDto alumno)
+        {
+            var token = HttpContext.Session.GetString("Token");
+            var baseApi = new BaseApi(_httpClient);
+            string dni = alumno.Dni.ToString();
+            var alumnos = baseApi.PutToApi($"Alumno/DeleteLogico?dni={dni}", alumno, token);
             return RedirectToAction("Alumnos", "Alumnos");
         }
     }

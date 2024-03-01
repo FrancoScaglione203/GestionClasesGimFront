@@ -24,10 +24,6 @@ namespace GestionClasesGimFront.Controllers
             return View();
         }
 
-        public IActionResult Login2()
-        {
-            return Login2();
-        }
 
         public async Task<IActionResult> Ingresar(LoginDto login)
         {

@@ -1,4 +1,9 @@
 ﻿$(document).ready(function () {
+    $('#imagenUrl').on('input', function () {
+        // Actualizar el atributo src de la imagen con la URL ingresada
+        $('#imagenPreview').attr('src', $(this).val());
+    });
+
     $('#editarPerfil').click(function () {
         // Habilitar la edición de los campos
         $('input[readonly]').prop('readonly', false);
@@ -30,6 +35,7 @@ $('#btnGuardar').click(function () {
     var dni = $('#dniAlumno').val();
     var clave = $('#claveAlumno').val();
     var roleId = $('#roleIdAlumno').val();
+    var imagenUrl = $('#imagenUrlAlumno').val();
 
     // Crea un objeto con los datos a enviar
     var data = {
@@ -37,7 +43,8 @@ $('#btnGuardar').click(function () {
         Apellido: apellido,
         Dni: dni,
         Clave: clave,
-        RoleId: roleId
+        RoleId: roleId,
+        ImagenUrl: imagenUrl
     };
 
     // Realiza una solicitud AJAX al controlador para guardar los datos
@@ -48,6 +55,7 @@ $('#btnGuardar').click(function () {
         success: function (response) {
             // Maneja la respuesta del servidor si es necesario
             console.log('Datos guardados correctamente');
+            window.location.href = "/Perfil/Perfil";
         },
         error: function (xhr, status, error) {
             // Maneja los errores si es necesario
